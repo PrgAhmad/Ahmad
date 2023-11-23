@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pair/Triplet Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="number"],
+    input[type="text"],
+    button {
+      padding: 8px;
+      margin: 5px;
+      width: 200px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    button {
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: green;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Pair/Triplet Finder</h1>
+  <label for="size">Enter size:</label>
+  <input type="number" id="size">
+  <br>
+  <div id="numberInputs"></div>
+  <label for="group">Enter 2 or 3 for 2 group or 3 group:</label>
+  <input type="number" id="group">
+  <br>
+  <label for="sum">Enter sum:</label>
+  <input type="number" id="sum">
+  <br>
+  <label for="numbers">Enter numbers (separated by commas):</label>
+  <input type="text" id="numbers">
+  <br>
+  <button onclick="findPairsOrTriplets()">Find</button>
+  <div id="output"></div>
+
+  <script>
+    function doublelet(d, n, a) {
+      let output = "";
+      let total = 0;
+      for (let i = 0; i < a.length; i++) {
+        for (let j = i + 1; j < a.length; j++) {
+          if (a[i] + a[j] === n) {
+            total++;
+            output += `(${a[i]},${a[j]}) `;
+          }
+        }
+      }
+      output += `<br>Total pairs: ${total}`;
+      return output;
+    }
+
+    function triplet(t, n, a) {
+      let output = "";
+      let total = 0;
+      for (let i = 0; i < a.length; i++) {
+        for (let j = i + 1; j < a.length; j++) {
+          for (let k = j + 1; k < a.length; k++) {
+            if (a[i] + a[j] + a[k] === n) {
+              total++;
+              output += `(${a[i]},${a[j]},${a[k]}) `;
+            }
+          }
+        }
+      }
+      output += `<br>Total triplets: ${total}`;
+      return output;
+    }
+
+    function findPairsOrTriplets() {
+      const size = parseInt(document.getElementById("size").value);
+      const group = parseInt(document.getElementById("group").value);
+      const sum = parseInt(document.getElementById("sum").value);
+      const numbers = document.getElementById("numbers").value.split(' ').map(Number);
+
+      let output = "";
+      if (group === 2) {
+        output = doublelet(numbers, sum, numbers);
+      } else if (group === 3) {
+        output = triplet(numbers, sum, numbers);
+      } else {
+        output = "You entered the wrong number of groups.";
+      }
+
+      document.getElementById("output").innerHTML = output;
+    }
+  </script>
+</body>
+</html>
+
+
